@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI朝活ポーズ提案ボット</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      background: linear-gradient(90deg, #a78bfa, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #a0aec0;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 36px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .card .emoji {
+      font-size: 3.5rem;
+      animation: pop 0.3s ease;
+    }
+
+    .card .pose-id {
+      font-size: 0.75rem;
+      color: #7c8ba1;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .card .pose-name {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #f9a8d4, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card .how-to {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+
+    .card .ai-memo {
+      font-size: 0.88rem;
+      color: #94d2bd;
+      font-style: italic;
+      border-left: 3px solid #34d399;
+      padding-left: 12px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .card .placeholder {
+      color: #4a5568;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 28px;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124,58,237,0.6);
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      80%  { transform: scale(1.1); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: #4a5568;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🤖 AI朝活ポーズ提案ボット</h1>
+    <p>ボタンを押して、今日のポーズをゲット！</p>
+  </header>
+
+  <div class="card" id="card">
+    <p class="placeholder">👇 下のボタンを押してみよう！</p>
+  </div>
+
+  <button onclick="suggestPose()">✨ ポーズを提案して！</button>
+
+  <footer>30種類のAIポーズからランダムに提案します</footer>
+
+  <script>
+    const poses = [
+      { id:1,  name:"ニューラルネットワーク", how:"隣の人と指先を軽く合わせ、網目状のネットワークを表現する。", memo:"つながりがAIの力。あなたも誰かのノードです。", emoji:"🔗" },
+      { id:2,  name:"バイナリ（0と1）",       how:"片手で「0」を、もう片手で「1」を指で作る。",            memo:"すべてはゼロとイチから始まる。シンプルさが最強の言語。", emoji:"💻" },
+      { id:3,  name:"ディープラーニング",      how:"顎に手を当て、深く考え込むようなポーズ。",              memo:"深く考えるほど、精度が上がる。あなたも今、学習中。", emoji:"🧠" },
+      { id:4,  name:"クラウド・アップロード",  how:"両手を斜め上に掲げ、データを空へ送るような仕草。",      memo:"あなたの朝の気力をクラウドへ送信中…完了！", emoji:"☁️" },
+      { id:5,  name:"AI CPU",                  how:"両手で顔の横に四角形（チップの形）を作る。",            memo:"あなたの脳はGPUより高速かもしれない。", emoji:"⚙️" },
+      { id:6,  name:"ノートPC",                how:"腕をL字に曲げ、画面を開いたパソコンに見立てる。",      memo:"起動完了。今日もフル稼働でいきましょう！", emoji:"💡" },
+      { id:7,  name:"高速 Wi-Fi",              how:"指を3本立てて、電波の感度マークを作る。",              memo:"感度フルバー。今日のあなたはつながりっぱなし。", emoji:"📶" },
+      { id:8,  name:"ロボット・ダンス",        how:"肘を90度に固定し、カクカクとした機械的な姿勢。",       memo:"感情ゼロ、効率100%。でも笑顔は忘れずに。", emoji:"🤖" },
+      { id:9,  name:"キーボード・タイピング",  how:"空中でピアノを弾くように指を動かし、入力を表現。",      memo:"打てば打つほど上達する。AIも人も同じ。", emoji:"⌨️" },
+      { id:10, name:"マウス・クリック",        how:"人差し指を丸め、スイッチを押す瞬間の形。",             memo:"クリック一つで世界が変わる。今日もその一歩を。", emoji:"🖱️" },
+      { id:11, name:"VRゴーグル",              how:"両手を目の周りに当てて、ゴーグルを覗いているポーズ。", memo:"新しい視点で見ると、世界はもっと広い。", emoji:"🥽" },
+      { id:12, name:"コーディング（スラッシュ）",how:"腕を一本斜めにし、記号の「/」を表現する。",          memo:"コードの世界では斜線一本に意味がある。", emoji:"💻" },
+      { id:13, name:"サンライズ",              how:"頭の上で両手で円を作り、朝の太陽を表現。",             memo:"新しい朝＝新しいエポック。今日も学習スタート！", emoji:"🌅" },
+      { id:14, name:"コーヒーブレイク",        how:"マグカップを両手で包み込み、ふぅーっと一息つくポーズ。",memo:"休憩もチューニングのうち。AIだって冷却が必要。", emoji:"☕" },
+      { id:15, name:"ステップアップ",          how:"階段を登るように、腕を互い違いに上下させる。",         memo:"一段ずつ。AIも最初は小さいモデルから始まった。", emoji:"🪜" },
+      { id:16, name:"ひらめき電球",            how:"人差し指を一本ピンと立て、良いアイデアが出た表情。",   memo:"ひらめきはランダム性から生まれる。今日も期待！", emoji:"💡" },
+      { id:17, name:"ロケット発射",            how:"両手を合わせて尖らせ、宇宙へ飛び立つ姿勢。",           memo:"推力さえあれば、どこへだって行ける。", emoji:"🚀" },
+      { id:18, name:"ハート・ビット",          how:"指ハートを作り、AIへの愛を表現。",                     memo:"AIに愛をプログラムする時代がきました。", emoji:"💗" },
+      { id:19, name:"シンクロニシティ",        how:"全員で同じ方向に首をかしげる。",                        memo:"チームが同期すると、出力は何倍にもなる。", emoji:"🔄" },
+      { id:20, name:"ズーム・イン",            how:"両手でカメラのレンズを絞るような動作。",                memo:"細部を見ると、パターンが見えてくる。", emoji:"🔍" },
+      { id:21, name:"スマートウォッチ",        how:"手首を指差し、時間を確認する仕草。",                    memo:"時間は有限。今この瞬間を最大化しよう。", emoji:"⌚" },
+      { id:22, name:"アンテナ",                how:"片手を頭の上に立てて、情報を受信している様子。",         memo:"感度を上げれば、見えないシグナルも受け取れる。", emoji:"📡" },
+      { id:23, name:"無限（∞）",              how:"両手で「8」を横にした形を作る。",                       memo:"学びに終わりはない。あなたの可能性も無限大。", emoji:"♾️" },
+      { id:24, name:"データの海",              how:"手を水平にゆらゆらさせ、波を表現する。",                memo:"データの海を泳ぎ切れ。波に乗るのは今日から。", emoji:"🌊" },
+      { id:25, name:"サイバー・サングラス",    how:"指でVサインを作り、目の横に添える。",                   memo:"未来を見る目をもった人が、次の時代を作る。", emoji:"😎" },
+      { id:26, name:"スクロール",              how:"片手の人差し指を上下にシャッシャッと動かす。",          memo:"情報をスクロールするより、体を動かす朝活が最強。", emoji:"📜" },
+      { id:27, name:"ピクセル",                how:"両手で小さな正方形を作り、画素を表現。",                memo:"小さな点の積み重ねが、大きな絵になる。", emoji:"🟦" },
+      { id:28, name:"バグ・退治",              how:"両手で何かをパチンと叩くポーズ。",                      memo:"バグは早期発見が鉄則。今日の不安も叩き潰せ！", emoji:"🐛" },
+      { id:29, name:"アップデート完了",        how:"両手で「OK」マークを作り、頬に当てる。",                memo:"昨日より今日。毎日アップデートし続ける自分へ。", emoji:"✅" },
+      { id:30, name:"オール・グリーン",        how:"両腕で大きな丸を作り、システム正常を表現。",            memo:"全システム正常稼働。今日も最高のパフォーマンスを！", emoji:"🟢" },
+    ];
+
+    let lastId = -1;
+
+    function suggestPose() {
+      let idx;
+      do { idx = Math.floor(Math.random() * poses.length); } while (idx === lastId);
+      lastId = idx;
+      const p = poses[idx];
+
+      const card = document.getElementById('card');
+      card.innerHTML = `
+        <div class="emoji fade-in">${p.emoji}</div>
+        <div class="pose-id fade-in">Pose #${p.id} / 30</div>
+        <div class="pose-name fade-in">${p.name}</div>
+        <div class="how-to fade-in">🙌 ${p.how}</div>
+        <div class="ai-memo fade-in">🤖 ${p.memo}</div>
+      `;
+    }
+  </script>
+</body>
+</html>
