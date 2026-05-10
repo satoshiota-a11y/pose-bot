@@ -3,166 +3,238 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI朝活ポーズ提案ボット</title>
+  <title>AI朝活ポーズ提案</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Noto+Sans+JP:wght@700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+      background-color: #f2c12e;
+      background-image:
+        radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      color: #fff;
+      padding: 40px 20px;
     }
 
+    /* ── ヘッダー ── */
     header {
       text-align: center;
       margin-bottom: 32px;
     }
 
+    .logo-brick {
+      display: inline-flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stud {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 3px solid rgba(0,0,0,0.25);
+    }
+
     header h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
       letter-spacing: 0.05em;
-      background: linear-gradient(90deg, #a78bfa, #60a5fa, #34d399);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      text-shadow: 3px 3px 0px #c0860a, 4px 4px 0px rgba(0,0,0,0.2);
     }
 
     header p {
-      margin-top: 8px;
-      font-size: 0.95rem;
-      color: #a0aec0;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.08em;
     }
 
+    /* ── カード ── */
     .card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 36px 32px;
-      max-width: 480px;
+      background: #e3000b;
+      border: 4px solid #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 6px 6px 0px #1a1a1a;
+      padding: 0;
+      max-width: 440px;
       width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* スタッド（上部） */
+    .studs-row {
+      background: #cc0009;
+      border-bottom: 4px solid #1a1a1a;
+      padding: 10px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .studs-row .stud {
+      width: 22px;
+      height: 22px;
+      background: #cc0009;
+      border: 3px solid rgba(0,0,0,0.3);
+      box-shadow: inset 0 2px 3px rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+
+    /* カード本体 */
+    .card-body {
+      padding: 32px 28px;
       text-align: center;
-      backdrop-filter: blur(10px);
-      min-height: 260px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       gap: 16px;
-      transition: all 0.4s ease;
+      min-height: 240px;
+      justify-content: center;
     }
 
     .card .emoji {
       font-size: 3.5rem;
-      animation: pop 0.3s ease;
+      filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.3));
     }
 
     .card .pose-id {
+      background: #f2c12e;
+      border: 3px solid #1a1a1a;
+      border-radius: 20px;
+      padding: 3px 14px;
       font-size: 0.75rem;
-      color: #7c8ba1;
+      font-weight: 900;
+      color: #1a1a1a;
       letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
 
     .card .pose-name {
       font-size: 1.8rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #f9a8d4, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+      letter-spacing: 0.04em;
     }
 
     .card .how-to {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #e2e8f0;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
+      background: #ffffff;
+      border: 3px solid #1a1a1a;
+      border-radius: 8px;
       padding: 14px 18px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.7;
+      color: #1a1a1a;
       width: 100%;
+      text-align: left;
     }
 
     .card .ai-memo {
-      font-size: 0.88rem;
-      color: #94d2bd;
-      font-style: italic;
-      border-left: 3px solid #34d399;
-      padding-left: 12px;
-      text-align: left;
+      background: #f2c12e;
+      border: 3px solid #1a1a1a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1a1a1a;
       width: 100%;
+      text-align: left;
+      line-height: 1.7;
     }
 
     .card .placeholder {
-      color: #4a5568;
+      color: rgba(255,255,255,0.7);
       font-size: 1rem;
+      font-weight: 700;
     }
 
+    /* ── ボタン ── */
     button {
       margin-top: 28px;
-      padding: 16px 40px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      color: #fff;
+      padding: 16px 48px;
+      font-size: 1.05rem;
+      font-weight: 900;
+      font-family: 'Nunito', 'Noto Sans JP', sans-serif;
+      letter-spacing: 0.1em;
+      border: 4px solid #1a1a1a;
+      border-radius: 8px;
+      background: #006db7;
+      color: #ffffff;
       cursor: pointer;
-      letter-spacing: 0.05em;
-      box-shadow: 0 4px 24px rgba(124,58,237,0.4);
-      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 5px 5px 0px #1a1a1a;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
     }
 
     button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(124,58,237,0.6);
+      background: #0080d6;
     }
 
     button:active {
-      transform: scale(0.97);
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0px #1a1a1a;
     }
 
-    @keyframes pop {
-      0%   { transform: scale(0.5); opacity: 0; }
-      80%  { transform: scale(1.1); }
-      100% { transform: scale(1);   opacity: 1; }
-    }
-
+    /* ── アニメーション ── */
     .fade-in {
-      animation: fadeIn 0.4s ease;
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
+    /* ── フッター ── */
     footer {
       margin-top: 24px;
-      font-size: 0.78rem;
-      color: #4a5568;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.1em;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>🤖 AI朝活ポーズ提案ボット</h1>
-    <p>ボタンを押して、今日のポーズをゲット！</p>
+    <div class="logo-brick">
+      <div class="stud" style="background:#e3000b"></div>
+      <div class="stud" style="background:#006db7"></div>
+      <div class="stud" style="background:#00a650"></div>
+      <div class="stud" style="background:#e3000b"></div>
+      <div class="stud" style="background:#006db7"></div>
+    </div>
+    <h1>🤖 AI朝活ポーズ提案</h1>
+    <p>MORNING ACTIVITY POSE GENERATOR</p>
   </header>
 
-  <div class="card" id="card">
-    <p class="placeholder">👇 下のボタンを押してみよう！</p>
+  <div class="card" id="cardWrap">
+    <div class="studs-row" id="studsRow">
+      <div class="stud"></div>
+      <div class="stud"></div>
+      <div class="stud"></div>
+      <div class="stud"></div>
+      <div class="stud"></div>
+      <div class="stud"></div>
+    </div>
+    <div class="card-body" id="card">
+      <p class="placeholder">👇 ボタンを押してポーズを受け取ろう！</p>
+    </div>
   </div>
 
-  <button onclick="suggestPose()">✨ ポーズを提案して！</button>
+  <button onclick="suggestPose()">🧱 ポーズを提案する！</button>
 
-  <footer>30種類のAIポーズからランダムに提案します</footer>
+  <footer>30 POSES ／ AI MORNING ACTIVITY</footer>
 
   <script>
     const poses = [
@@ -198,6 +270,14 @@
       { id:30, name:"オール・グリーン",        how:"両腕で大きな丸を作り、システム正常を表現。",            memo:"全システム正常稼働。今日も最高のパフォーマンスを！", emoji:"🟢" },
     ];
 
+    const colors = [
+      { bg:'#e3000b', top:'#cc0009' },
+      { bg:'#006db7', top:'#0058a0' },
+      { bg:'#00a650', top:'#008f45' },
+      { bg:'#6e3fa3', top:'#5c348a' },
+      { bg:'#f47920', top:'#d6651a' },
+    ];
+
     let lastId = -1;
 
     function suggestPose() {
@@ -205,11 +285,17 @@
       do { idx = Math.floor(Math.random() * poses.length); } while (idx === lastId);
       lastId = idx;
       const p = poses[idx];
+      const col = colors[idx % colors.length];
 
-      const card = document.getElementById('card');
-      card.innerHTML = `
+      const wrap = document.getElementById('cardWrap');
+      const studs = document.getElementById('studsRow');
+      wrap.style.background = col.bg;
+      wrap.style.borderColor = '#1a1a1a';
+      studs.style.background = col.top;
+
+      document.getElementById('card').innerHTML = `
         <div class="emoji fade-in">${p.emoji}</div>
-        <div class="pose-id fade-in">Pose #${p.id} / 30</div>
+        <div class="pose-id fade-in">No. ${String(p.id).padStart(2,'0')} ／ 30</div>
         <div class="pose-name fade-in">${p.name}</div>
         <div class="how-to fade-in">🙌 ${p.how}</div>
         <div class="ai-memo fade-in">🤖 ${p.memo}</div>
