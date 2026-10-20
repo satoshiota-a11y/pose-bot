@@ -11,8 +11,7 @@
     body {
       font-family: 'Nunito', 'Noto Sans JP', sans-serif;
       background-color: #f2c12e;
-      background-image:
-        radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
       background-size: 28px 28px;
       min-height: 100vh;
       display: flex;
@@ -22,7 +21,6 @@
       padding: 40px 20px;
     }
 
-    /* ── ヘッダー ── */
     header {
       text-align: center;
       margin-bottom: 32px;
@@ -34,7 +32,7 @@
       margin-bottom: 12px;
     }
 
-    .stud {
+    .stud-top {
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -57,20 +55,17 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── カード ── */
     .card {
       background: #e3000b;
       border: 4px solid #1a1a1a;
       border-radius: 10px;
       box-shadow: 6px 6px 0px #1a1a1a;
-      padding: 0;
       max-width: 440px;
       width: 100%;
       overflow: hidden;
       position: relative;
     }
 
-    /* スタッド（上部） */
     .studs-row {
       background: #cc0009;
       border-bottom: 4px solid #1a1a1a;
@@ -83,13 +78,13 @@
     .studs-row .stud {
       width: 22px;
       height: 22px;
-      background: #cc0009;
+      border-radius: 50%;
+      background: inherit;
       border: 3px solid rgba(0,0,0,0.3);
       box-shadow: inset 0 2px 3px rgba(255,255,255,0.2);
       flex-shrink: 0;
     }
 
-    /* カード本体 */
     .card-body {
       padding: 32px 28px;
       text-align: center;
@@ -101,12 +96,9 @@
       justify-content: center;
     }
 
-    .card .emoji {
-      font-size: 3.5rem;
-      filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.3));
-    }
+    .emoji { font-size: 3.5rem; filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.3)); }
 
-    .card .pose-id {
+    .pose-id {
       background: #f2c12e;
       border: 3px solid #1a1a1a;
       border-radius: 20px;
@@ -117,7 +109,7 @@
       letter-spacing: 0.1em;
     }
 
-    .card .pose-name {
+    .pose-name {
       font-size: 1.8rem;
       font-weight: 900;
       color: #ffffff;
@@ -125,7 +117,7 @@
       letter-spacing: 0.04em;
     }
 
-    .card .how-to {
+    .how-to {
       background: #ffffff;
       border: 3px solid #1a1a1a;
       border-radius: 8px;
@@ -138,7 +130,7 @@
       text-align: left;
     }
 
-    .card .ai-memo {
+    .ai-memo {
       background: #f2c12e;
       border: 3px solid #1a1a1a;
       border-radius: 8px;
@@ -151,13 +143,12 @@
       line-height: 1.7;
     }
 
-    .card .placeholder {
+    .placeholder {
       color: rgba(255,255,255,0.7);
       font-size: 1rem;
       font-weight: 700;
     }
 
-    /* ── ボタン ── */
     button {
       margin-top: 28px;
       padding: 16px 48px;
@@ -175,26 +166,15 @@
       text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
     }
 
-    button:hover {
-      background: #0080d6;
-    }
+    button:hover { background: #0080d6; }
+    button:active { transform: translate(3px,3px); box-shadow: 2px 2px 0px #1a1a1a; }
 
-    button:active {
-      transform: translate(3px, 3px);
-      box-shadow: 2px 2px 0px #1a1a1a;
-    }
-
-    /* ── アニメーション ── */
-    .fade-in {
-      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
-    }
-
+    .fade-in { animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
     @keyframes popIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to   { opacity: 1; transform: scale(1); }
+      from { opacity:0; transform:scale(0.85); }
+      to   { opacity:1; transform:scale(1); }
     }
 
-    /* ── フッター ── */
     footer {
       margin-top: 24px;
       font-size: 0.75rem;
@@ -208,24 +188,20 @@
 
   <header>
     <div class="logo-brick">
-      <div class="stud" style="background:#e3000b"></div>
-      <div class="stud" style="background:#006db7"></div>
-      <div class="stud" style="background:#00a650"></div>
-      <div class="stud" style="background:#e3000b"></div>
-      <div class="stud" style="background:#006db7"></div>
+      <div class="stud-top" style="background:#e3000b"></div>
+      <div class="stud-top" style="background:#006db7"></div>
+      <div class="stud-top" style="background:#00a650"></div>
+      <div class="stud-top" style="background:#e3000b"></div>
+      <div class="stud-top" style="background:#006db7"></div>
     </div>
     <h1>🤖 AI朝活ポーズ提案</h1>
-    <p>MORNING ACTIVITY POSE GENERATOR</p>
+    <p>MORNING ACTIVITY POSE GENERATOR — ver.2</p>
   </header>
 
   <div class="card" id="cardWrap">
     <div class="studs-row" id="studsRow">
-      <div class="stud"></div>
-      <div class="stud"></div>
-      <div class="stud"></div>
-      <div class="stud"></div>
-      <div class="stud"></div>
-      <div class="stud"></div>
+      <div class="stud"></div><div class="stud"></div><div class="stud"></div>
+      <div class="stud"></div><div class="stud"></div><div class="stud"></div>
     </div>
     <div class="card-body" id="card">
       <p class="placeholder">👇 ボタンを押してポーズを受け取ろう！</p>
@@ -234,40 +210,40 @@
 
   <button onclick="suggestPose()">🧱 ポーズを提案する！</button>
 
-  <footer>30 POSES ／ AI MORNING ACTIVITY</footer>
+  <footer>30 POSES ／ AI MORNING ACTIVITY ver.2</footer>
 
   <script>
     const poses = [
-      { id:1,  name:"ニューラルネットワーク", how:"隣の人と指先を軽く合わせ、網目状のネットワークを表現する。", memo:"つながりがAIの力。あなたも誰かのノードです。", emoji:"🔗" },
-      { id:2,  name:"バイナリ（0と1）",       how:"片手で「0」を、もう片手で「1」を指で作る。",            memo:"すべてはゼロとイチから始まる。シンプルさが最強の言語。", emoji:"💻" },
-      { id:3,  name:"ディープラーニング",      how:"顎に手を当て、深く考え込むようなポーズ。",              memo:"深く考えるほど、精度が上がる。あなたも今、学習中。", emoji:"🧠" },
-      { id:4,  name:"クラウド・アップロード",  how:"両手を斜め上に掲げ、データを空へ送るような仕草。",      memo:"あなたの朝の気力をクラウドへ送信中…完了！", emoji:"☁️" },
-      { id:5,  name:"AI CPU",                  how:"両手で顔の横に四角形（チップの形）を作る。",            memo:"あなたの脳はGPUより高速かもしれない。", emoji:"⚙️" },
-      { id:6,  name:"ノートPC",                how:"腕をL字に曲げ、画面を開いたパソコンに見立てる。",      memo:"起動完了。今日もフル稼働でいきましょう！", emoji:"💡" },
-      { id:7,  name:"高速 Wi-Fi",              how:"指を3本立てて、電波の感度マークを作る。",              memo:"感度フルバー。今日のあなたはつながりっぱなし。", emoji:"📶" },
-      { id:8,  name:"ロボット・ダンス",        how:"肘を90度に固定し、カクカクとした機械的な姿勢。",       memo:"感情ゼロ、効率100%。でも笑顔は忘れずに。", emoji:"🤖" },
-      { id:9,  name:"キーボード・タイピング",  how:"空中でピアノを弾くように指を動かし、入力を表現。",      memo:"打てば打つほど上達する。AIも人も同じ。", emoji:"⌨️" },
-      { id:10, name:"マウス・クリック",        how:"人差し指を丸め、スイッチを押す瞬間の形。",             memo:"クリック一つで世界が変わる。今日もその一歩を。", emoji:"🖱️" },
-      { id:11, name:"VRゴーグル",              how:"両手を目の周りに当てて、ゴーグルを覗いているポーズ。", memo:"新しい視点で見ると、世界はもっと広い。", emoji:"🥽" },
-      { id:12, name:"コーディング（スラッシュ）",how:"腕を一本斜めにし、記号の「/」を表現する。",          memo:"コードの世界では斜線一本に意味がある。", emoji:"💻" },
-      { id:13, name:"サンライズ",              how:"頭の上で両手で円を作り、朝の太陽を表現。",             memo:"新しい朝＝新しいエポック。今日も学習スタート！", emoji:"🌅" },
-      { id:14, name:"コーヒーブレイク",        how:"マグカップを両手で包み込み、ふぅーっと一息つくポーズ。",memo:"休憩もチューニングのうち。AIだって冷却が必要。", emoji:"☕" },
-      { id:15, name:"ステップアップ",          how:"階段を登るように、腕を互い違いに上下させる。",         memo:"一段ずつ。AIも最初は小さいモデルから始まった。", emoji:"🪜" },
-      { id:16, name:"ひらめき電球",            how:"人差し指を一本ピンと立て、良いアイデアが出た表情。",   memo:"ひらめきはランダム性から生まれる。今日も期待！", emoji:"💡" },
-      { id:17, name:"ロケット発射",            how:"両手を合わせて尖らせ、宇宙へ飛び立つ姿勢。",           memo:"推力さえあれば、どこへだって行ける。", emoji:"🚀" },
-      { id:18, name:"ハート・ビット",          how:"指ハートを作り、AIへの愛を表現。",                     memo:"AIに愛をプログラムする時代がきました。", emoji:"💗" },
-      { id:19, name:"シンクロニシティ",        how:"全員で同じ方向に首をかしげる。",                        memo:"チームが同期すると、出力は何倍にもなる。", emoji:"🔄" },
-      { id:20, name:"ズーム・イン",            how:"両手でカメラのレンズを絞るような動作。",                memo:"細部を見ると、パターンが見えてくる。", emoji:"🔍" },
-      { id:21, name:"スマートウォッチ",        how:"手首を指差し、時間を確認する仕草。",                    memo:"時間は有限。今この瞬間を最大化しよう。", emoji:"⌚" },
-      { id:22, name:"アンテナ",                how:"片手を頭の上に立てて、情報を受信している様子。",         memo:"感度を上げれば、見えないシグナルも受け取れる。", emoji:"📡" },
-      { id:23, name:"無限（∞）",              how:"両手で「8」を横にした形を作る。",                       memo:"学びに終わりはない。あなたの可能性も無限大。", emoji:"♾️" },
-      { id:24, name:"データの海",              how:"手を水平にゆらゆらさせ、波を表現する。",                memo:"データの海を泳ぎ切れ。波に乗るのは今日から。", emoji:"🌊" },
-      { id:25, name:"サイバー・サングラス",    how:"指でVサインを作り、目の横に添える。",                   memo:"未来を見る目をもった人が、次の時代を作る。", emoji:"😎" },
-      { id:26, name:"スクロール",              how:"片手の人差し指を上下にシャッシャッと動かす。",          memo:"情報をスクロールするより、体を動かす朝活が最強。", emoji:"📜" },
-      { id:27, name:"ピクセル",                how:"両手で小さな正方形を作り、画素を表現。",                memo:"小さな点の積み重ねが、大きな絵になる。", emoji:"🟦" },
-      { id:28, name:"バグ・退治",              how:"両手で何かをパチンと叩くポーズ。",                      memo:"バグは早期発見が鉄則。今日の不安も叩き潰せ！", emoji:"🐛" },
-      { id:29, name:"アップデート完了",        how:"両手で「OK」マークを作り、頬に当てる。",                memo:"昨日より今日。毎日アップデートし続ける自分へ。", emoji:"✅" },
-      { id:30, name:"オール・グリーン",        how:"両腕で大きな丸を作り、システム正常を表現。",            memo:"全システム正常稼働。今日も最高のパフォーマンスを！", emoji:"🟢" },
+      { id:1,  name:"プロンプトエンジニア",   how:"両手で空中にタイプしながら、考え込む表情をする。",                     memo:"言葉の設計こそがAI時代の最強スキル。あなたも今日からエンジニア。", emoji:"✍️" },
+      { id:2,  name:"ハルシネーション",        how:"頭を両手で抱え、「え、それ本当？」と困惑した表情をする。",              memo:"AIも間違える。それを見抜く目があなたの武器になる。", emoji:"😵" },
+      { id:3,  name:"ファインチューニング",    how:"指先で小さなつまみをゆっくり微調整するような仕草。",                    memo:"大きく変えなくていい。少しの調整が精度を劇的に上げる。", emoji:"🎛️" },
+      { id:4,  name:"マルチモーダル",          how:"目・耳・口を順番に指差し、全感覚を使っているアピール。",                memo:"見て、聞いて、読む。AIも五感を持ち始めた時代が来た。", emoji:"👁️" },
+      { id:5,  name:"エージェント",            how:"腕を広げて「全部任せろ！」とばかりに前に大きく一歩踏み出す。",          memo:"指示を出すだけで動くAI。あなたはもう指揮官だ。", emoji:"🦾" },
+      { id:6,  name:"コンテキストウィンドウ",  how:"両手で大きな四角い窓枠を作り、その中を覗き込む。",                      memo:"どれだけ記憶できるか。窓が広いほど賢くなる。", emoji:"🪟" },
+      { id:7,  name:"RAG（検索拡張生成）",     how:"片手で本を開くように、もう片手でメモを取る二段階の仕草。",             memo:"知識を検索して、生成する。調べてから答えるのが賢いやり方。", emoji:"📚" },
+      { id:8,  name:"ベクトル検索",            how:"人差し指を斜め上に向け、ピタッと方向を定める。",                        memo:"意味の近さで探す。キーワードじゃなくて「空気感」で検索する時代。", emoji:"🧭" },
+      { id:9,  name:"チェーンオブソート",      how:"指を1本ずつ折りながら、ステップを順番に数えていく仕草。",              memo:"考えを声に出して整理する。段階を踏む思考がAIも人も強くする。", emoji:"⛓️" },
+      { id:10, name:"ゼロショット",            how:"両手を大きく広げて「なんでもこい！」のポーズ。",                        memo:"例がなくても答えられる。それがゼロショットの底力。", emoji:"🎯" },
+      { id:11, name:"アテンション機構",        how:"手を目の上にかざして遠くを見る。「ここ重要！」という表情で。",          memo:"大事なところだけに集中する力。それは人もAIも同じ。", emoji:"🔭" },
+      { id:12, name:"トークン",                how:"指先で小さなコインを1枚ずつ丁寧に数える仕草。",                        memo:"言葉は細かく分解される。一つひとつのかけらに意味がある。", emoji:"🪙" },
+      { id:13, name:"オーケストレーション",    how:"指揮者のように両手を優雅に振り、全体をまとめる。",                      memo:"複数のAIを束ねて動かす。あなたはマエストロだ。", emoji:"🎼" },
+      { id:14, name:"フィードバックループ",    how:"腕で大きな円をゆっくり描く。",                                          memo:"結果を次に活かす。ループするたびに賢くなっていく。", emoji:"🔁" },
+      { id:15, name:"リアルタイム推論",        how:"指をパチンと素早く鳴らして、即答のイメージ。",                          memo:"考える時間ゼロ。今この瞬間に答えが出る時代が来た。", emoji:"⚡" },
+      { id:16, name:"モデル圧縮",              how:"両手を広げた状態からギュッと近づけて小さく圧縮する。",                  memo:"小さくても賢い。サイズと性能は比例しない。", emoji:"🗜️" },
+      { id:17, name:"エンベディング",          how:"両手を重ねて、意味を「埋め込む」ような仕草。",                          memo:"言葉を数字に変換する。それがAIが意味を理解する仕組み。", emoji:"🧩" },
+      { id:18, name:"マルチエージェント",      how:"両手がそれぞれ独立して、バラバラに別の動きをする。",                    memo:"複数のAIが同時に動く。チームプレーで問題を解決する時代。", emoji:"👥" },
+      { id:19, name:"デプロイ完了",            how:"親指を立てながら「リリース！」と押し出すような動き。",                  memo:"作ったものを世界に届ける瞬間。それが一番気持ちいい。", emoji:"🚀" },
+      { id:20, name:"セマンティック検索",      how:"虫眼鏡で意味を探るように、目を細めてじっくり見る仕草。",               memo:"言葉の表面じゃなく、意味で探す。それが次世代の検索。", emoji:"🔍" },
+      { id:21, name:"バッチ処理",              how:"両手でたくさんのものをまとめて一気に抱え込む仕草。",                    memo:"まとめてやれば効率が上がる。一気にこなすのがAI流。", emoji:"📦" },
+      { id:22, name:"メモリ拡張",              how:"頭の横で両手を外側に広げ、容量が増えていくイメージ。",                  memo:"記憶が増えるほど、できることが広がる。限界を広げ続けよう。", emoji:"🧠" },
+      { id:23, name:"トランスフォーマー",      how:"両腕をクロスしてから、変身するように大きく広げる。",                    memo:"AIの革命を起こした仕組み。あなたも今日、変革を起こそう。", emoji:"⚙️" },
+      { id:24, name:"データパイプライン",      how:"手を波のように、一方向へなめらかに流す動き。",                          memo:"データは流れてこそ価値になる。止まった情報は死んでいる。", emoji:"🌊" },
+      { id:25, name:"合成データ",              how:"両手の指先を合わせて、何かが生まれるような仕草。",                      memo:"ゼロから生み出すデータ。創造こそがAI時代の資産になる。", emoji:"✨" },
+      { id:26, name:"マルチタスク",            how:"両手で全く別の動きを同時にやってみる（難しければ笑顔で！）。",         memo:"同時並行が当たり前の時代。あなたの頭もマルチコアで動いている。", emoji:"🤹" },
+      { id:27, name:"AGI",                     how:"両腕をゆっくり大きく広げて、「無限の可能性」を全身で表現。",            memo:"汎用人工知能。人類の夢がもうすぐそこまで来ている。", emoji:"🌌" },
+      { id:28, name:"モデル評価",              how:"両手でスコアボードを持ち上げるように高く掲げる。",                      memo:"作るだけじゃなく、測ることが大事。数字が品質を証明する。", emoji:"📊" },
+      { id:29, name:"量子化",                  how:"両手でアコーディオンのように、押し縮めてコンパクトにする仕草。",        memo:"精度を保ちながら小さくする技術。引き算の美学がここにある。", emoji:"🔢" },
+      { id:30, name:"自律進化",                how:"両腕をゆっくり上に伸ばしながら、成長していくイメージで立ち上がる。",   memo:"学び続けるシステムは止まらない。あなたも今日から自律進化中。", emoji:"🌱" },
     ];
 
     const colors = [
@@ -288,10 +264,8 @@
       const col = colors[idx % colors.length];
 
       const wrap = document.getElementById('cardWrap');
-      const studs = document.getElementById('studsRow');
       wrap.style.background = col.bg;
-      wrap.style.borderColor = '#1a1a1a';
-      studs.style.background = col.top;
+      document.getElementById('studsRow').style.background = col.top;
 
       document.getElementById('card').innerHTML = `
         <div class="emoji fade-in">${p.emoji}</div>
